@@ -22,3 +22,17 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Gradle 관련 (코딩 테스트 연습 기록용이므로 제외)
+build.gradle
+settings.gradle
+gradlew
+gradlew.bat
+gradle/
+.gradle/
+build/
+
+# IDE 설정 파일
+.vscode/
+.idea/
+*.iml
