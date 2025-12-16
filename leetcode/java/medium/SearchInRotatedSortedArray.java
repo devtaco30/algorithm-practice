@@ -55,11 +55,83 @@ public class SearchInRotatedSortedArray {
     }
 }
 
-/**
- * 문제가 O(log n) 을 요구한다. 이진트리 탐색.
- */
 class Solution {
     public int search(int[] nums, int target) {
+
+        int left = 0, right = nums.length - 1;
+        
+        while(left <= right) {
+            int mid = (left + right) / 2;
+
+            if(nums[mid] == target) {
+                return mid;
+            }
+
+            //left sorted
+            if(nums[left] <= nums[mid]) {
+                if(nums[left] <= target && target <= nums[mid]) {
+                    right = mid - 1;
+                }
+                else {
+                    left = mid + 1;
+                }
+            }
+            //right sorted
+            else {
+                if(nums[mid] <= target && target <= nums[high]) {
+                    left = mid + 1;
+                }
+                else {
+                    right = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 이진 탐색으로 pivot 위치를 찾는 함수
+     * pivot: 회전이 시작되는 지점 (가장 작은 값의 인덱스)
+     * 
+     * 예시:
+     * - [4,5,6,7,0,1,2] → pivot = 4 (0이 시작되는 위치)
+     * - [0,1,2,4,5,6,7] → pivot = 0 (회전되지 않은 경우)
+     * 
+     * 시간 복잡도: O(log n)
+     */
+    private int findPivot(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        
+        // 배열이 회전되지 않은 경우 (완전히 정렬된 경우)
+        if (nums[left] < nums[right]) {
+            return 0;
+        }
+        
+        // 이진 탐색으로 pivot 찾기
+        while (left < right) {
+            int mid = (left + right) / 2;
+            
+            // mid가 pivot인 경우: mid+1이 mid보다 작음
+            if (mid < nums.length - 1 && nums[mid] > nums[mid + 1]) {
+                return mid + 1;
+            }
+            
+            // 왼쪽 부분이 정렬되어 있으면 (nums[left] <= nums[mid])
+            // pivot은 오른쪽에 있음
+            if (nums[left] <= nums[mid]) {
+                left = mid + 1;
+            } else {
+                // 오른쪽 부분이 정렬되어 있으면 pivot은 왼쪽에 있음
+                right = mid;
+            }
+        }
+        
+        return left;
+    }
+
+    public int search_better(int[] nums, int target) {
 
         int left = 0, right = nums.length - 1;
         
@@ -72,7 +144,7 @@ class Solution {
                 return mid;
             }
 
-            //left sorted 에 있는지 확인 
+            //left sorted 에 있는지 확인 -> 회전된 배열의 왼쪽 절반이 정렬되어 있다.
             if(nums[left] <= nums[mid]) { // nums[left] 가 mid 보다 작은 구간
                 if(nums[left] <= target && target <= nums[mid]) { // target 이 nums[left] 와 nums[mid] 사이에 있는지 확인
                     right = mid - 1; // target 이 left sorted 구간에 잇는게 확인됐으므로 right 를 mid 왼쪽으로 좁혀준다.
@@ -95,5 +167,4 @@ class Solution {
         return -1;
     }
 
-   
 }
