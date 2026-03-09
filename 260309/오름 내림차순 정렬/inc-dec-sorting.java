@@ -15,8 +15,6 @@ public class Main {
             System.out.print(i + " ");
         }
 
-        System.out.println("\n");
-
         Arrays.sort(arr2, Collections.reverseOrder());
         for (Integer i : arr2) {
             System.out.print(i + " ");
