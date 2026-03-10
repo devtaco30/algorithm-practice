@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -12,22 +12,39 @@ public class Main {
             regions[i] = sc.next();
         }
         // Please write your code here.
+
+        List<Address> members = new ArrayList<>();
+        for (int i = 0; i < n ; i++){
+            members.add(new Address(names[i], addresses[i], regions[i]));
+        }
+
+        Collections.sort(members);
+
+        members.get(members.size()-1).print();
+
     }
 }
 
-class Address {
+class Address implements Comparable<Address>{
     String name;
-    String streeNumber;
+    String address;
     String region;
 
-    public Address(String name, String streetNumber, String region){
+    public Address(String name, String address, String region){
         this.name = name;
-        this.streetNumber = streetNumber;
+        this.address = address;
         this.region = region;
     }
 
+    @Override
+    public int compareTo(Address o) {
+        return this.name.compareTo(o.name);
+
+    }
+
     public void print(){
-        System.out.prinf("name %s\n", this.name);
-        System.out.prinf("name %s\n", this.name);
+        System.out.printf("name %s\n", this.name);
+        System.out.printf("addr %s\n", this.address);
+        System.out.printf("city %s\n", this.region);
     }
 }
