@@ -1,20 +1,28 @@
 import java.util.*;
+import java.io.*;
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<Forecast> forecasts = new ArrayList<>();
-        int n = sc.nextInt();
-        for (int i = 0; i < n; i++) {
-            String date = sc.next();
-            String day = sc.next();
-            String weather = sc.next();
-            Forecast f = new Forecast(date, day, weather);
-            forecasts.add(f);
+
+        try(
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in))){
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            List<Forecast> rains = new ArrayList<>();
+            for (int i = 0; i < n; i++) {
+                StringTokenizer st2 = new StringTokenizer(br.readLine());
+                String date = st2.nextToken();
+                String day = st2.nextToken();
+                String weather = st2.nextToken();
+                if ("Rain".equals(weather)) {
+                    rains.add(new Forecast(date, day, weather));
+                }
+            }
+
+            Collections.sort(rains);
+            if (!rains.isEmpty()) rains.get(0).print();
+        } catch (IOException e){
+            e.printStackTrace();
         }
-
-        Collections.sort(forecasts);
-        forecasts.stream().filter(f -> f.weather.equals("Rain")).findFirst().ifPresent(f -> f.print());
-
 
 
     }
