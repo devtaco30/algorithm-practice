@@ -19,7 +19,7 @@ public class Main {
 
             for(int i = 0; i < n; i++) {
                 int min = i; // 제일 작은 index
-                for(int j = i+1; j<n-1; j++){
+                for(int j = i+1; j<n; j++){
                     if ( arr[min] > arr[j]) { // 이 인덱스의 값보다 작은걸 찾으면 min 값을 교체
                         min = j;
                     }
@@ -35,9 +35,6 @@ public class Main {
             }
 
             System.out.println(sb.toString());
- 
-            
-
             
         } catch(Exception e){
             e.printStackTrace();
